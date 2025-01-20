@@ -1,12 +1,10 @@
-import { Box, Container } from "@chakra-ui/react";
-import { TaskCard } from "./components/task-card";
-import { SetStateAction } from "react";
-import { Task } from "./types";
+import { Box } from "@chakra-ui/react";
+import { KanbanBoard } from "./components/kanban-board";
 
 function App() {
   return (
     <Box>
-   
+      <KanbanBoard />
     </Box>
   );
 }

@@ -5,5 +5,5 @@ export interface Task {
   type: TaskType;
   startDay: number;
   endDay: number;
-  description: string;
+  text: string;
 }

@@ -3,6 +3,7 @@ import { Card, CardBody, Flex, HStack, Input, Text } from "@chakra-ui/react";
 import React, { ReactNode } from "react";
 import { Editable } from "./editable";
 import { Task } from "data/models";
+import { formatDate } from "utils/date";
 
 const TaskCardRow = ({ children }: { children: ReactNode }) => {
   return (
@@ -23,15 +24,18 @@ export const TaskCard = ({ task }: TaskCardProps) => {
         <VStack justifyContent={"space-between"} alignItems={"start"}>
           <TaskCardRow>
             <Text variant={"regular"}>Начало:</Text>
-            <Editable initialValue="19.01.2025" />
+            <Editable initialValue={formatDate(new Date(task.startDay))} />
           </TaskCardRow>
           <TaskCardRow>
             <Text variant={"regular"}>Окончание:</Text>
-            <Editable isEditing initialValue="30.01.2025" />
+            <Editable
+              isEditing
+              initialValue={formatDate(new Date(task.endDay))}
+            />
           </TaskCardRow>
           <TaskCardRow>
             <Text variant={"regular"}>Описание::</Text>
-            <Editable isEditing initialValue="Сделать тестовое для IP" />
+            <Editable isEditing initialValue={task.text} />
           </TaskCardRow>
           <HStack
             position="absolute"

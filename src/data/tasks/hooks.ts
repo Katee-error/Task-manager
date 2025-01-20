@@ -1,6 +1,6 @@
 import { compareAsc } from "date-fns";
-import { useAtom } from "jotai";
-import { tasksAtom } from "./atoms";
+import { useAtom, useSetAtom } from "jotai";
+import { deleteTaskAtom, tasksAtom } from "./atoms";
 import { useEffect, useMemo } from "react";
 import { groupBy } from "utils/collections";
 import { loadTasks } from "./loadTasks";
@@ -30,4 +30,10 @@ export const useTasksByStatus = () => {
   }, []);
 
   return tasksByStatus;
+};
+
+export const useTaskActions = () => {
+  const deleteTask = useSetAtom(deleteTaskAtom);
+
+  return { deleteTask };
 };

@@ -88,16 +88,34 @@ const theme = extendTheme({
       },
     },
     Button: {
-      baseStyle: {
-        borderRadius: "full",
-      },
+      baseStyle: {},
       variants: {
-        solid: {
-          bg: "accent",
-          color: "white",
+        icon: {
+          color: "primaryText",
+          width: "18px",
+          minWidth: "18px",
+          height: "18px",
+          border: "none",
+          padding: "0",
+          svg: {
+            boxSize: "18px",
+          },
           _hover: {
-            bg: "accent",
-            transform: "scale(1.05)",
+            color: "blue",
+          },
+        },
+        "icon-danger": {
+          color: "secondaryText",
+          boxSizing: "18px",
+          width: "18px",
+          minWidth: "18px",
+          height: "18px",
+          border: "none",
+          svg: {
+            boxSize: "18px",
+          },
+          _hover: {
+            color: "red",
           },
         },
       },

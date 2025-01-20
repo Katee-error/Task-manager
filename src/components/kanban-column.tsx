@@ -16,6 +16,7 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = ({ title, tasks }) => {
     <VStack
       maxH="100%"
       w="398px"
+      minW="398px"
       borderRadius="4px"
       p="32px 16px"
       bgColor="background"

@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { atomWithStorage, createJSONStorage } from "jotai/utils";
+import { atomWithStorage } from "jotai/utils";
 import { deserializeTasks, serializeTasks, Task } from "./models";
 import { loadTasks } from "./loadTasks";
 

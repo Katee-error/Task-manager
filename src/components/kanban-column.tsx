@@ -1,6 +1,5 @@
 import React, { ReactNode } from "react";
-import { Box, Heading, HStack, Stack, VStack } from "@chakra-ui/react";
-// import { Task } from "../types";
+import { Heading, HStack, Stack, VStack } from "@chakra-ui/react";
 import { TaskCard } from "./task/task-card";
 import { Task } from "data/tasks/models";
 

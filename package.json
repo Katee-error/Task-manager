@@ -2,6 +2,7 @@
   "name": "task-manager",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://Katee-error.github.io/task-manager",
   "dependencies": {
     "@chakra-ui/react": "^2.10.5",
     "@emotion/react": "^11.14.0",
@@ -17,6 +18,8 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test -- --config=jest.config.js",
@@ -48,6 +51,7 @@
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
     "@types/testing-library__jest-dom": "^5.14.9",
+    "gh-pages": "^6.3.0",
     "ts-jest": "^29.2.5",
     "web-vitals": "^4.2.4",
     "zod": "^3.24.1"

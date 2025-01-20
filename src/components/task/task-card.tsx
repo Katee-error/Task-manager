@@ -1,12 +1,10 @@
 import { IconButton, VStack } from "@chakra-ui/react";
 import { Card, CardBody, HStack } from "@chakra-ui/react";
 import { isExpired, Task } from "data/tasks/models";
-import { formatDate } from "utils/date";
 import { TaskCardRow } from "./task-card-row";
 import { TrashIcon } from "components/icons/trash-icon";
 import { PenIcon } from "components/icons/pen-icon";
 import { useTaskActions } from "data/tasks/hooks";
-import { useCallback } from "react";
 import { CheckIcon } from "components/icons/check-icon";
 import { XIcon } from "components/icons/x-icon";
 

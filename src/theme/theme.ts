@@ -1,5 +1,4 @@
 import { extendTheme } from "@chakra-ui/react";
-import { baseStyle } from "@chakra-ui/react/dist/types/avatar/avatar";
 
 const baseColors = {
   blue: "#0184CF",

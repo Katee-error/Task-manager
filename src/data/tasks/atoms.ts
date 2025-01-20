@@ -26,6 +26,8 @@ export const tasksAtom = atomWithStorage<Task[]>(
   }
 );
 
+export const searchAtom = atom("");
+
 export const deleteTaskAtom = atom(null, (_, set, id: number) => {
   set(tasksAtom, (tasks) => tasks.filter((task) => task.id !== id));
 });

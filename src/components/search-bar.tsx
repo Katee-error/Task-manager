@@ -1,12 +1,21 @@
 import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import React from "react";
+import { useSearch } from "data/tasks/hooks";
+import React, { ChangeEvent, useCallback } from "react";
 
 export const SearchBar: React.FC = () => {
+  const { search, setSearch } = useSearch();
+
+  const onChange = useCallback(
+    ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+      setSearch(value);
+    },
+    [setSearch]
+  );
+
   return (
     <Box>
       <InputGroup mb={"40px"} flex="1">
-        <InputLeftElement pointerEvents="none">
-        </InputLeftElement>
+        <InputLeftElement pointerEvents="none"></InputLeftElement>
         <Input
           fontSize={"16px"}
           w={"430px"}
@@ -22,6 +31,8 @@ export const SearchBar: React.FC = () => {
             border: "4px solid rgba(1, 132, 207, 0.5)",
           }}
           placeholder="Поиск..."
+          value={search}
+          onChange={onChange}
         />
       </InputGroup>
     </Box>

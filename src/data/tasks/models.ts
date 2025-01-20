@@ -1,3 +1,4 @@
+import { formatDate } from "utils/date";
 import z from "zod";
 
 export const TaskType = z.enum(["todo", "in_progress", "review", "done"]);
@@ -24,3 +25,18 @@ export const serializeTasks = (tasks: Task[]): string =>
   );
 
 export const deserializeTasks = (tasks: unknown) => Task.array().parse(tasks);
+
+export const searchTasks = (search: string, tasks: Task[]) => {
+  if (!search) return tasks;
+
+  return tasks.filter(({ text, startDay, endDay }) => {
+    const textMatch = new RegExp(`.*${search.toLowerCase()}.*`).test(
+      text.toLowerCase()
+    );
+
+    const startDayMatch = formatDate(startDay) === search;
+    const endDayMatch = formatDate(endDay) === search;
+
+    return textMatch || startDayMatch || endDayMatch;
+  });
+};

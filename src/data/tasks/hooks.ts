@@ -1,19 +1,19 @@
 import { compareAsc } from "date-fns";
-import { useAtom, useSetAtom } from "jotai";
-import { deleteTaskAtom, editTaskAtom, tasksAtom } from "./atoms";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { deleteTaskAtom, editTaskAtom, searchAtom, tasksAtom } from "./atoms";
+import { useCallback, useMemo, useState } from "react";
 import { groupBy } from "utils/collections";
-import { loadTasks } from "./loadTasks";
-import { Task } from "./models";
+import { searchTasks, Task } from "./models";
 import { formatDate, safeParseDate } from "utils/date";
 
 export const useTasksByStatus = () => {
-  const [tasks, setTasks] = useAtom(tasksAtom);
+  const tasks = useAtomValue(tasksAtom);
+  const search = useAtomValue(searchAtom);
 
   const tasksByStatus = useMemo(
     () =>
       groupBy(
-        tasks.sort((task1, task2) =>
+        searchTasks(search, tasks).sort((task1, task2) =>
           compareAsc(task1.startDay, task2.startDay)
         ),
         ({ type }) => type,
@@ -24,7 +24,7 @@ export const useTasksByStatus = () => {
           done: [],
         }
       ),
-    [tasks]
+    [tasks, search]
   );
 
   return tasksByStatus;
@@ -97,4 +97,10 @@ export const useTaskActions = (task: Task) => {
   }, [setIsEditing, editTask, form.submit]);
 
   return { onDelete, onEditStart, onEditCancel, onEditApply, isEditing, form };
+};
+
+export const useSearch = () => {
+  const [search, setSearch] = useAtom(searchAtom);
+
+  return { search, setSearch };
 };

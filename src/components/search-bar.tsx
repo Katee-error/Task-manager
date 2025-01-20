@@ -1,6 +1,7 @@
 import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { useSearch } from "data/tasks/hooks";
 import React, { ChangeEvent, useCallback } from "react";
+import { SearchIcon } from "./icons/search-icon";
 
 export const SearchBar: React.FC = () => {
   const { search, setSearch } = useSearch();
@@ -15,20 +16,25 @@ export const SearchBar: React.FC = () => {
   return (
     <Box>
       <InputGroup mb={"40px"} flex="1">
-        <InputLeftElement pointerEvents="none"></InputLeftElement>
+        <InputLeftElement left="8px" pointerEvents="none" color="primaryText">
+          <SearchIcon boxSize="24px" />
+        </InputLeftElement>
         <Input
           fontSize={"16px"}
           w={"430px"}
           bg="rgba(255, 255, 255, 0.07)"
           py={"20px"}
+          pl="64px"
           type="text"
           borderRadius={"20px"}
-          border={"1px solid #5B5A5B"}
+          border="1px solid"
+          borderColor="inputBorder"
           _hover={{
-            border: "1px solid #0184CF",
+            borderColor: "primary",
           }}
           _focus={{
-            border: "4px solid rgba(1, 132, 207, 0.5)",
+            boxShadow: "activeInput",
+            borderColor: "primary",
           }}
           placeholder="Поиск..."
           value={search}

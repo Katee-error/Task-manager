@@ -1,4 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
+import { baseStyle } from "@chakra-ui/react/dist/types/avatar/avatar";
 
 const baseColors = {
   blue: "#0184CF",
@@ -12,6 +13,7 @@ const semanticColors = {
   buttonBackground: "rgba(255, 255, 255, 0.08)",
   buttonBackgroundFocus: "rgba(255, 255, 255, 0.2)",
   border: "rgba(255, 255, 255, 0.5)",
+  inputBorder: "rgba(255, 255, 255, 0.3)",
   primary: baseColors.blue,
   error: baseColors.red,
 };
@@ -34,6 +36,9 @@ const theme = extendTheme({
   },
   fonts: {
     body: "'Inter', sans-serif",
+  },
+  shadows: {
+    activeInput: "0 0 0 4px rgba(1, 132, 207, 0.5)",
   },
   components: {
     Editable: {

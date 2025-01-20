@@ -7,14 +7,16 @@ const theme = extendTheme({
         bg: "url('/assets/bg-img.png')",
         backgroundSize: "cover",
         color: "white",
-        backgroundRepeat: 'no-repeat',
-        height: '100vh'
+        backgroundRepeat: "no-repeat",
+        height: "100vh",
       },
     },
   },
   colors: {
-    primary: "rgba(255, 255, 255, 0.87)",
-    secondary: "rgba(255, 255, 255, 0.6)",
+    primaryText: "rgba(255, 255, 255, 0.87)",
+    secondaryText: "rgba(255, 255, 255, 0.6)",
+    background: "rgba(0,0,0, 0.7)",
+    border: "rgba(255, 255, 255, 0.5)",
     blue: "#0184CF",
     red: "rgba(252, 54, 57, 0.6)",
   },
@@ -22,12 +24,29 @@ const theme = extendTheme({
     body: "'Inter', sans-serif",
   },
   components: {
-    Card: {
+    Editable: {
       baseStyle: {
-        bg: "rgba(255, 255, 255, 0.1)",
-        color: "white",
-        borderRadius: "4px",
-        padding: 4,
+        preview: {
+          padding: 0,
+          fontSize: "14px",
+          fontWeight: "700",
+          lineHeight: "157%",
+          color: "primaryText",
+        },
+      },
+    },
+    Card: {
+      variants: {
+        info: {
+          container: {
+            backgroundColor: "rgba(255, 255, 255, 0.1)",
+            color: "white",
+            borderRadius: "4px",
+          },
+          body: {
+            padding: "16px",
+          },
+        },
       },
     },
     Heading: {
@@ -56,12 +75,12 @@ const theme = extendTheme({
         regular: {
           fontWeight: "400",
           lineHeight: "150%",
-          color: "secondary",
+          color: "secondaryText",
         },
         bold: {
           fontWeight: "700",
           lineHeight: "157%",
-          color: "primary",
+          color: "primaryText",
         },
         ended: {
           color: "red",
@@ -84,9 +103,31 @@ const theme = extendTheme({
       },
     },
     Input: {
-      baseStyle: {
-        field: {
-          color: "white",
+      variants: {
+        editable: {
+          field: {
+            border: "1px solid",
+            borderColor: "border",
+            borderRadius: "4px",
+            background: "none",
+            padding: "10px",
+            width: "200px",
+            height: "22px",
+            fontWeight: "bold",
+            fontSize: "14px",
+            lineHeight: "157%",
+            letterSpacing: "-0.03em",
+            color: "white",
+            _active: {
+              borderColor: "blue",
+            },
+            _hover: {
+              borderColor: "blue",
+            },
+            _focus: {
+              borderColor: "blue",
+            },
+          },
         },
       },
     },

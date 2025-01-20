@@ -1,32 +1,38 @@
-// import { Task } from "@/types";
-import { Button } from "@chakra-ui/react";
+import { Button, VStack } from "@chakra-ui/react";
 import { Card, CardBody, Flex, HStack, Input, Text } from "@chakra-ui/react";
-import React from "react";
-// import { Pencil } from 'lucide-react';
-// import { Trash2 } from 'lucide-react';
+import React, { ReactNode } from "react";
+import { Editable } from "./editable";
+import { Task } from "data/models";
 
-// interface Props {
-//   // task: Task;
-//   // setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-// }
-
-export const TaskCard: React.FC = () => {
+const TaskCardRow = ({ children }: { children: ReactNode }) => {
   return (
-    <Card>
+    <HStack alignItems={"center"} spacing="16px">
+      {children}
+    </HStack>
+  );
+};
+
+interface TaskCardProps {
+  task: Task;
+}
+
+export const TaskCard = ({ task }: TaskCardProps) => {
+  return (
+    <Card variant="info">
       <CardBody>
-        <Flex justifyContent={"space-between"} alignItems={"start"}>
-          <Flex alignItems={"center"} gap={"5px"}>
+        <VStack justifyContent={"space-between"} alignItems={"start"}>
+          <TaskCardRow>
             <Text variant={"regular"}>Начало:</Text>
-            <Input>19.01.2025</Input>
-          </Flex>
-          <Flex alignItems={"center"} gap={"5px"}>
+            <Editable initialValue="19.01.2025" />
+          </TaskCardRow>
+          <TaskCardRow>
             <Text variant={"regular"}>Окончание:</Text>
-            <Input>30.01.2025</Input>
-          </Flex>
-          <Flex alignItems={"center"} gap={"5px"}>
+            <Editable isEditing initialValue="30.01.2025" />
+          </TaskCardRow>
+          <TaskCardRow>
             <Text variant={"regular"}>Описание::</Text>
-            <Input>Сделать тестовое для IP</Input>
-          </Flex>
+            <Editable isEditing initialValue="Сделать тестовое для IP" />
+          </TaskCardRow>
           <HStack
             position="absolute"
             top="2"
@@ -53,7 +59,7 @@ export const TaskCard: React.FC = () => {
               {/* <Trash2 /> */}
             </Button>
           </HStack>
-        </Flex>
+        </VStack>
       </CardBody>
     </Card>
   );

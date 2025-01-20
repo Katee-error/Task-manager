@@ -1,9 +1,9 @@
+export type TaskType = "todo" | "in_progress" | "review" | "done";
+
 export interface Task {
   id: number;
-  type: "todo" | "in_progress" | "review" | "done";
+  type: TaskType;
   startDay: number;
   endDay: number;
   description: string;
-  onEdit: () => void;
-  onDelete: () => void;
 }

@@ -5,6 +5,7 @@ import {
   EditableProps as ChakraEditableProps,
   Text,
   Input,
+  TextProps,
 } from "@chakra-ui/react";
 import { ChangeEvent, useCallback, useState } from "react";
 
@@ -12,6 +13,7 @@ interface EditableProps {
   isEditing?: boolean;
   initialValue?: string;
   onChange?: (value: string) => void;
+  textProps?: TextProps;
 }
 
 export function Editable(props: EditableProps) {
@@ -27,6 +29,8 @@ export function Editable(props: EditableProps) {
   return props.isEditing ? (
     <Input variant="editable" value={value} onChange={onChange} />
   ) : (
-    <Text variant="bold">{value}</Text>
+    <Text variant="bold" {...(props.textProps ?? {})}>
+      {value}
+    </Text>
   );
 }

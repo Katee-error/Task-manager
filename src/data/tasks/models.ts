@@ -11,3 +11,5 @@ export const Task = z.object({
   text: z.string(),
 });
 export type Task = z.infer<typeof Task>;
+
+export const isExpired = (task: Task): boolean => task.endDay <= new Date();

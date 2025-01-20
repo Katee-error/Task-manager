@@ -1,17 +1,10 @@
 import { Button, VStack } from "@chakra-ui/react";
-import { Card, CardBody, Flex, HStack, Input, Text } from "@chakra-ui/react";
-import React, { ReactNode } from "react";
-import { Editable } from "./editable";
-import { Task } from "data/tasks/models";
+import { Card, CardBody, HStack, Text } from "@chakra-ui/react";
+import { ReactNode } from "react";
+import { Editable } from "../uikit/editable";
+import { isExpired, Task } from "data/tasks/models";
 import { formatDate } from "utils/date";
-
-const TaskCardRow = ({ children }: { children: ReactNode }) => {
-  return (
-    <HStack alignItems={"center"} spacing="16px">
-      {children}
-    </HStack>
-  );
-};
+import { TaskCardRow } from "./task-card-row";
 
 interface TaskCardProps {
   task: Task;
@@ -22,18 +15,16 @@ export const TaskCard = ({ task }: TaskCardProps) => {
     <Card variant="info">
       <CardBody>
         <VStack justifyContent={"space-between"} alignItems={"start"}>
-          <TaskCardRow>
-            <Text variant={"regular"}>Начало:</Text>
-            <Editable initialValue={formatDate(task.startDay)} />
-          </TaskCardRow>
-          <TaskCardRow>
-            <Text variant={"regular"}>Окончание:</Text>
-            <Editable isEditing initialValue={formatDate(task.endDay)} />
-          </TaskCardRow>
-          <TaskCardRow>
-            <Text variant={"regular"}>Описание::</Text>
-            <Editable isEditing initialValue={task.text} />
-          </TaskCardRow>
+          <TaskCardRow
+            label="Начало:"
+            initialValue={formatDate(task.startDay)}
+          />
+          <TaskCardRow
+            label="Окончание:"
+            initialValue={formatDate(task.endDay)}
+            shouldWarn={isExpired(task)}
+          />
+          <TaskCardRow label="Описание:" initialValue={task.text} />
           <HStack
             position="absolute"
             top="2"

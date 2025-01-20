@@ -1,17 +1,17 @@
 import React from "react";
 import { Box, Heading, Stack, VStack } from "@chakra-ui/react";
 // import { Task } from "../types";
-import { TaskCard } from "./task-card";
+import { TaskCard } from "./task/task-card";
 import { Task } from "data/tasks/models";
 
-interface TaskColumnProps {
+interface KanbanColumnProps {
   title: string;
   //   icon: string;
   tasks: Task[];
   //   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
-const TaskColumn: React.FC<TaskColumnProps> = ({ title, tasks }) => {
+export const KanbanColumn: React.FC<KanbanColumnProps> = ({ title, tasks }) => {
   return (
     <VStack
       maxH="100%"
@@ -32,5 +32,3 @@ const TaskColumn: React.FC<TaskColumnProps> = ({ title, tasks }) => {
     </VStack>
   );
 };
-
-export default TaskColumn;

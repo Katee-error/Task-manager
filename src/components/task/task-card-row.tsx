@@ -4,26 +4,32 @@ import { ReactNode } from "react";
 
 interface TaskCardRowProps {
   label: string;
-  initialValue: string;
+  value: string;
+  onEdit: (value: string) => void;
+  textArea?: boolean;
   isEditing?: boolean;
   shouldWarn?: boolean;
 }
 
 export const TaskCardRow = ({
-  initialValue,
+  value,
   label,
+  onEdit,
   shouldWarn = false,
-  isEditing,
+  textArea = false,
+  isEditing = false,
 }: TaskCardRowProps) => {
   return (
     <HStack alignItems="start" spacing="16px">
       <Text variant="regular">{label}</Text>
       <Editable
+        textArea={textArea}
         isEditing={isEditing}
-        initialValue={initialValue}
+        initialValue={value}
         textProps={{
-          color: shouldWarn ? "red" : "primaryText",
+          color: shouldWarn ? "error" : "primaryText",
         }}
+        onEdit={onEdit}
       />
     </HStack>
   );

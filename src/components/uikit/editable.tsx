@@ -1,36 +1,39 @@
-import {
-  Editable as ChakraEditable,
-  EditableInput,
-  EditablePreview,
-  EditableProps as ChakraEditableProps,
-  Text,
-  Input,
-  TextProps,
-} from "@chakra-ui/react";
-import { ChangeEvent, useCallback, useState } from "react";
+import { Text, Input, TextProps, Textarea } from "@chakra-ui/react";
+import { ChangeEvent, useCallback } from "react";
 
 interface EditableProps {
   isEditing?: boolean;
+  textArea?: boolean;
   initialValue?: string;
-  onChange?: (value: string) => void;
+  onEdit?: (value: string) => void;
   textProps?: TextProps;
 }
 
-export function Editable(props: EditableProps) {
-  const [value, setValue] = useState<string>(props.initialValue ?? "");
+export function Editable({
+  initialValue,
+  onEdit,
+  isEditing,
+  textArea,
+  textProps,
+}: EditableProps) {
   const onChange = useCallback(
-    ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-      setValue(value);
-      props.onChange?.(value);
+    ({
+      target: { value },
+    }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      onEdit?.(value);
     },
-    [setValue, props.onChange]
+    [onEdit]
   );
 
-  return props.isEditing ? (
-    <Input variant="editable" value={value} onChange={onChange} />
+  return isEditing ? (
+    textArea ? (
+      <Textarea variant="editable" value={initialValue} onChange={onChange} />
+    ) : (
+      <Input variant="editable" value={initialValue} onChange={onChange} />
+    )
   ) : (
-    <Text variant="bold" {...(props.textProps ?? {})}>
-      {value}
+    <Text variant="bold" {...(textProps ?? {})}>
+      {initialValue}
     </Text>
   );
 }

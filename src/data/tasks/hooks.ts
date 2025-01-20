@@ -1,9 +1,11 @@
 import { compareAsc } from "date-fns";
 import { useAtom, useSetAtom } from "jotai";
-import { deleteTaskAtom, tasksAtom } from "./atoms";
-import { useEffect, useMemo } from "react";
+import { deleteTaskAtom, editTaskAtom, tasksAtom } from "./atoms";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { groupBy } from "utils/collections";
 import { loadTasks } from "./loadTasks";
+import { Task } from "./models";
+import { formatDate, safeParseDate } from "utils/date";
 
 export const useTasksByStatus = () => {
   const [tasks, setTasks] = useAtom(tasksAtom);
@@ -32,8 +34,71 @@ export const useTasksByStatus = () => {
   return tasksByStatus;
 };
 
-export const useTaskActions = () => {
-  const deleteTask = useSetAtom(deleteTaskAtom);
+export const useTaskForm = (task: Task) => {
+  const [startDay, setStartDay] = useState(formatDate(task.startDay));
+  const [endDay, setEndDay] = useState(formatDate(task.endDay));
+  const [text, setText] = useState(task.text);
 
-  return { deleteTask };
+  const resetAll = useCallback(() => {
+    setStartDay(formatDate(task.startDay));
+    setText(task.text);
+    setEndDay(formatDate(task.endDay));
+  }, [setStartDay, setEndDay, setText, task]);
+
+  const submit = useCallback(() => {
+    const updatedStartDay = safeParseDate(startDay, task.startDay);
+    setStartDay(formatDate(updatedStartDay));
+    const updatedEndDay = safeParseDate(endDay, task.endDay);
+    setEndDay(formatDate(updatedEndDay));
+
+    return {
+      text,
+      startDay: updatedStartDay,
+      endDay: updatedEndDay,
+    };
+  }, [text, startDay, endDay, task.startDay, task.endDay]);
+
+  return {
+    startDay: {
+      value: startDay,
+      onEdit: setStartDay,
+    },
+    endDay: {
+      value: endDay,
+      onEdit: setEndDay,
+    },
+    text: {
+      value: text,
+      onEdit: setText,
+    },
+    resetAll,
+    submit,
+  };
+};
+
+export const useTaskActions = (task: Task) => {
+  const deleteTask = useSetAtom(deleteTaskAtom);
+  const editTask = useSetAtom(editTaskAtom);
+  const [isEditing, setIsEditing] = useState(false);
+  const { resetAll, ...form } = useTaskForm(task);
+
+  const onDelete = useCallback(
+    () => deleteTask(task.id),
+    [deleteTask, task.id]
+  );
+  const onEditStart = useCallback(() => setIsEditing(true), [setIsEditing]);
+  const onEditCancel = useCallback(() => {
+    setIsEditing(false);
+    resetAll();
+  }, [setIsEditing, resetAll]);
+  const onEditApply = useCallback(() => {
+    setIsEditing(false);
+    const updates = form.submit();
+    editTask({
+      ...task,
+      ...updates,
+    });
+  }, [setIsEditing, editTask, form.submit]);
+
+  return { onDelete, onEditStart, onEditCancel, onEditApply, isEditing, form };
 };

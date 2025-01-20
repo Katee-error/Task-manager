@@ -1,5 +1,21 @@
 import { extendTheme } from "@chakra-ui/react";
 
+const baseColors = {
+  blue: "#0184CF",
+  red: "rgba(252, 54, 57, 0.6)",
+};
+const semanticColors = {
+  primaryText: "rgba(255, 255, 255, 0.87)",
+  secondaryText: "rgba(255, 255, 255, 0.6)",
+  background: "rgba(0,0,0, 0.7)",
+  cardBackground: "rgba(255, 255, 255, 0.1)",
+  buttonBackground: "rgba(255, 255, 255, 0.08)",
+  buttonBackgroundFocus: "rgba(255, 255, 255, 0.2)",
+  border: "rgba(255, 255, 255, 0.5)",
+  primary: baseColors.blue,
+  error: baseColors.red,
+};
+
 const theme = extendTheme({
   styles: {
     global: {
@@ -13,12 +29,8 @@ const theme = extendTheme({
     },
   },
   colors: {
-    primaryText: "rgba(255, 255, 255, 0.87)",
-    secondaryText: "rgba(255, 255, 255, 0.6)",
-    background: "rgba(0,0,0, 0.7)",
-    border: "rgba(255, 255, 255, 0.5)",
-    blue: "#0184CF",
-    red: "rgba(252, 54, 57, 0.6)",
+    ...baseColors,
+    ...semanticColors,
   },
   fonts: {
     body: "'Inter', sans-serif",
@@ -39,7 +51,7 @@ const theme = extendTheme({
       variants: {
         info: {
           container: {
-            backgroundColor: "rgba(255, 255, 255, 0.1)",
+            backgroundColor: "cardBackground",
             color: "white",
             borderRadius: "4px",
           },
@@ -83,7 +95,7 @@ const theme = extendTheme({
           color: "primaryText",
         },
         ended: {
-          color: "red",
+          color: "error",
         },
       },
     },
@@ -101,12 +113,14 @@ const theme = extendTheme({
             boxSize: "18px",
           },
           _hover: {
-            color: "blue",
+            color: "primary",
+          },
+          _active: {
+            color: "primary",
           },
         },
         "icon-danger": {
           color: "secondaryText",
-          boxSizing: "18px",
           width: "18px",
           minWidth: "18px",
           height: "18px",
@@ -115,7 +129,26 @@ const theme = extendTheme({
             boxSize: "18px",
           },
           _hover: {
-            color: "red",
+            color: "error",
+          },
+          _active: {
+            color: "error",
+          },
+        },
+        "icon-button": {
+          boxSizing: "18px",
+          borderRadius: "full",
+          border: "none",
+          backgroundColor: "buttonBackground",
+          color: "primaryText",
+          svg: {
+            boxSize: "24px",
+          },
+          _hover: {
+            backgroundColor: "buttonBackgroundFocus",
+          },
+          _active: {
+            backgroundColor: "buttonBackgroundFocus",
           },
         },
       },
@@ -137,14 +170,41 @@ const theme = extendTheme({
             letterSpacing: "-0.03em",
             color: "white",
             _active: {
-              borderColor: "blue",
+              borderColor: "primary",
             },
             _hover: {
-              borderColor: "blue",
+              borderColor: "primary",
             },
             _focus: {
-              borderColor: "blue",
+              borderColor: "primary",
             },
+          },
+        },
+      },
+    },
+    Textarea: {
+      variants: {
+        editable: {
+          border: "1px solid",
+          borderColor: "border",
+          borderRadius: "4px",
+          background: "none",
+          padding: "10px",
+          width: "200px",
+          height: "22px",
+          fontWeight: "bold",
+          fontSize: "14px",
+          lineHeight: "157%",
+          letterSpacing: "-0.03em",
+          color: "white",
+          _active: {
+            borderColor: "primary",
+          },
+          _hover: {
+            borderColor: "primary",
+          },
+          _focus: {
+            borderColor: "primary",
           },
         },
       },

@@ -7,33 +7,25 @@ import { TrashIcon } from "components/icons/trash-icon";
 import { PenIcon } from "components/icons/pen-icon";
 import { useTaskActions } from "data/tasks/hooks";
 import { useCallback } from "react";
+import { CheckIcon } from "components/icons/check-icon";
+import { XIcon } from "components/icons/x-icon";
 
 interface TaskCardProps {
   task: Task;
 }
 
 export const TaskCard = ({ task }: TaskCardProps) => {
-  const { deleteTask } = useTaskActions();
-
-  const onDelete = useCallback(
-    () => deleteTask(task.id),
-    [deleteTask, task.id]
-  );
+  const { onDelete, onEditStart, onEditCancel, onEditApply, isEditing, form } =
+    useTaskActions(task);
 
   return (
     <Card variant="info" className="group">
       <CardBody>
-        <VStack justifyContent={"space-between"} alignItems={"start"}>
-          <TaskCardRow
-            label="Начало:"
-            initialValue={formatDate(task.startDay)}
-          />
-          <TaskCardRow
-            label="Окончание:"
-            initialValue={formatDate(task.endDay)}
-            shouldWarn={isExpired(task)}
-          />
-          <TaskCardRow label="Описание:" initialValue={task.text} />
+        <VStack
+          justifyContent={"space-between"}
+          alignItems={"start"}
+          spacing="8px"
+        >
           <HStack
             position="absolute"
             top="16px"
@@ -47,7 +39,7 @@ export const TaskCard = ({ task }: TaskCardProps) => {
               variant="icon"
               icon={<PenIcon />}
               aria-label="Редактировать"
-              onClick={() => {}}
+              onClick={onEditStart}
             />
             <IconButton
               variant="icon-danger"
@@ -56,6 +48,40 @@ export const TaskCard = ({ task }: TaskCardProps) => {
               onClick={onDelete}
             />
           </HStack>
+          <TaskCardRow
+            label="Начало:"
+            isEditing={isEditing}
+            {...form.startDay}
+          />
+          <TaskCardRow
+            label="Окончание:"
+            shouldWarn={isExpired(task)}
+            isEditing={isEditing}
+            {...form.endDay}
+          />
+          <TaskCardRow
+            label="Описание:"
+            isEditing={isEditing}
+            textArea
+            {...form.text}
+          />
+          {isEditing ? (
+            <HStack alignSelf="end" spacing="8px">
+              <IconButton
+                icon={<CheckIcon />}
+                color="primary"
+                variant="icon-button"
+                aria-label="Применить изменения"
+                onClick={onEditApply}
+              />
+              <IconButton
+                icon={<XIcon />}
+                variant="icon-button"
+                aria-label="Отмена"
+                onClick={onEditCancel}
+              />
+            </HStack>
+          ) : null}
         </VStack>
       </CardBody>
     </Card>

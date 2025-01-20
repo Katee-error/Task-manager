@@ -8,12 +8,7 @@ import { doneTasks, inProgressTasks, reviewTasks, todoTasks } from "data/tasks";
 export const KanbanBoard: React.FC = () => {
   return (
     <VStack pt="60px" pb="48px" h="100vh" justifyItems="start">
-      <Container
-        maxW={"container.xl"}
-        maxH="100%"
-        display="flex"
-        flexDir="column"
-      >
+      <Container maxW="1920px" maxH="100%" display="flex" flexDir="column">
         <Flex justifyContent={"space-between"} alignItems={"baceline"}>
           <Heading>Your tasks</Heading>
           <SearchBar />
@@ -22,6 +17,7 @@ export const KanbanBoard: React.FC = () => {
           justify="space-between"
           align="start"
           overflowX="auto"
+          justifyContent="start"
           spacing="40px"
         >
           <TaskColumn title="To Do" tasks={todoTasks} />

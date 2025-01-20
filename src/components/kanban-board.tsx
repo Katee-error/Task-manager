@@ -3,7 +3,7 @@ import { Container, Flex, Heading, HStack, VStack } from "@chakra-ui/react";
 import React from "react";
 import { SearchBar } from "./search-bar";
 import TaskColumn from "./task-column";
-import { doneTasks, inProgressTasks, reviewTasks, todoTasks } from "data/tasks";
+import { doneTasks, inProgressTasks, reviewTasks, todoTasks } from "data/tasks/tasks";
 
 export const KanbanBoard: React.FC = () => {
   return (

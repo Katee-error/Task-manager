@@ -1,7 +1,7 @@
-import { Task } from "data/models";
+import { Task } from "data/tasks/models";
 import rawTasks from "./tasks.json";
 
-const tasks = rawTasks as any as Task[];
+const tasks = Task.array().parse(rawTasks);
 
 export const todoTasks = tasks.filter(({ type }) => type === "todo");
 export const inProgressTasks = tasks.filter(

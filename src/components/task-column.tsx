@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Heading, Stack, VStack } from "@chakra-ui/react";
 // import { Task } from "../types";
 import { TaskCard } from "./task-card";
-import { Task } from "data/models";
+import { Task } from "data/tasks/models";
 
 interface TaskColumnProps {
   title: string;

@@ -7,6 +7,8 @@ const theme = extendTheme({
         bg: "url('/assets/bg-img.png')",
         backgroundSize: "cover",
         color: "white",
+        backgroundRepeat: 'no-repeat',
+        height: '100vh'
       },
     },
   },

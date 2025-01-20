@@ -4,6 +4,10 @@ import React from "react";
 import { SearchBar } from "./search-bar";
 import { KanbanColumn } from "./kanban-column";
 import { useTasksByStatus } from "data/tasks/hooks";
+import { LaughIcon } from "./icons/laugh-icon";
+import { SmileIcon } from "./icons/smile-icon";
+import { SmileInvertedIcon } from "./icons/smile-inverted-icon";
+import { GhostIcon } from "./icons/ghost-icon";
 
 export const KanbanBoard: React.FC = () => {
   const tasksByStatus = useTasksByStatus();
@@ -21,13 +25,26 @@ export const KanbanBoard: React.FC = () => {
           justifyContent="start"
           spacing="40px"
         >
-          <KanbanColumn title="To Do" tasks={tasksByStatus["todo"]} />
           <KanbanColumn
+            icon={<LaughIcon boxSize="24px" color="primaryText" />}
+            title="To Do"
+            tasks={tasksByStatus["todo"]}
+          />
+          <KanbanColumn
+            icon={<SmileIcon boxSize="24px" color="primaryText" />}
             title="In Progress"
             tasks={tasksByStatus["in_progress"]}
           />
-          <KanbanColumn title="Review" tasks={tasksByStatus["review"]} />
-          <KanbanColumn title="Done" tasks={tasksByStatus["done"]} />
+          <KanbanColumn
+            icon={<SmileInvertedIcon boxSize="24px" color="primaryText" />}
+            title="Review"
+            tasks={tasksByStatus["review"]}
+          />
+          <KanbanColumn
+            icon={<GhostIcon boxSize="24px" color="primaryText" />}
+            title="Done"
+            tasks={tasksByStatus["done"]}
+          />
         </HStack>
       </Container>
     </VStack>

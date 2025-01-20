@@ -1,17 +1,20 @@
-import React from "react";
-import { Box, Heading, Stack, VStack } from "@chakra-ui/react";
+import React, { ReactNode } from "react";
+import { Box, Heading, HStack, Stack, VStack } from "@chakra-ui/react";
 // import { Task } from "../types";
 import { TaskCard } from "./task/task-card";
 import { Task } from "data/tasks/models";
 
 interface KanbanColumnProps {
   title: string;
-  //   icon: string;
+  icon: ReactNode;
   tasks: Task[];
-  //   setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
-export const KanbanColumn: React.FC<KanbanColumnProps> = ({ title, tasks }) => {
+export const KanbanColumn: React.FC<KanbanColumnProps> = ({
+  title,
+  icon,
+  tasks,
+}) => {
   return (
     <VStack
       maxH="100%"
@@ -22,9 +25,12 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = ({ title, tasks }) => {
       bgColor="background"
       align="start"
     >
-      <Heading as="h2" variant={"h2"} mb={4}>
-        {title}
-      </Heading>
+      <HStack spacing="8px" mb={4}>
+        {icon}
+        <Heading as="h2" variant="h2">
+          {title}
+        </Heading>
+      </HStack>
       <Stack spacing={4} overflowY="auto">
         {tasks.map((task) => (
           <TaskCard key={task.id} task={task} />

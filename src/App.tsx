@@ -1,9 +1,12 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
+import { TaskCard } from "./components/task-card";
+import { SetStateAction } from "react";
+import { Task } from "./types";
 
 function App() {
   return (
     <Box>
-      Hello
+   
     </Box>
   );
 }

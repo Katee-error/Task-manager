@@ -1,4 +1,4 @@
-import { Task } from "data/tasks/models";
+import { deserializeTasks } from "data/tasks/models";
 import rawTasks from "./tasks.json";
 
-export const loadTasks = () => Task.array().parse(rawTasks);
+export const loadTasks = () => deserializeTasks(rawTasks);

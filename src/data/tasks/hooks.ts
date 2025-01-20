@@ -27,10 +27,6 @@ export const useTasksByStatus = () => {
     [tasks]
   );
 
-  useEffect(() => {
-    setTasks(loadTasks());
-  }, []);
-
   return tasksByStatus;
 };
 

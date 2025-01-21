@@ -11,7 +11,7 @@ import {
 } from "./atoms";
 import { useCallback, useMemo, useState } from "react";
 import { groupBy } from "utils/collections";
-import { searchTasks, Task, TaskType } from "./models";
+import { searchTasks, Task } from "./models";
 import { formatDate, safeParseDate } from "utils/date";
 import { DragEndEvent, DragOverEvent, DragStartEvent } from "@dnd-kit/core";
 

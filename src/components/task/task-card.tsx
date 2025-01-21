@@ -9,6 +9,7 @@ import { CheckIcon } from "components/icons/check-icon";
 import { XIcon } from "components/icons/x-icon";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useState } from "react";
 
 interface TaskCardProps {
   task: Task;
@@ -17,6 +18,10 @@ interface TaskCardProps {
 export const TaskCard = ({ task }: TaskCardProps) => {
   const { onDelete, onEditStart, onEditCancel, onEditApply, isEditing, form } =
     useTaskActions(task);
+  const [editHover, setEditHover] = useState(false);
+  if (task.text === "Разработать прототип нового интерфейса.") {
+    console.log(isEditing, editHover);
+  }
   const {
     attributes,
     listeners,
@@ -24,7 +29,7 @@ export const TaskCard = ({ task }: TaskCardProps) => {
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: task.id });
+  } = useSortable({ id: task.id, disabled: isEditing || editHover });
 
   return (
     <Card
@@ -53,12 +58,17 @@ export const TaskCard = ({ task }: TaskCardProps) => {
               opacity={0}
               _groupHover={{ opacity: 1 }} // Кнопки показываются при наведении на карточку
               transition="opacity 0.3s"
+              onMouseEnter={() => setEditHover(true)}
+              onMouseLeave={() => setEditHover(false)}
             >
               <IconButton
                 variant="icon"
                 icon={<PenIcon />}
                 aria-label="Редактировать"
-                onClick={onEditStart}
+                onClick={() => {
+                  onEditStart();
+                  setEditHover(false);
+                }}
               />
               <IconButton
                 variant="icon-danger"

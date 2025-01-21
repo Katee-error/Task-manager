@@ -3,11 +3,7 @@ import { Container, Flex, Heading, HStack, VStack } from "@chakra-ui/react";
 import React from "react";
 import { SearchBar } from "./search-bar";
 import { KanbanColumn } from "./kanban-column";
-import {
-  useDragControls,
-  useTasksByStatus,
-  useUpdateTaskType,
-} from "data/tasks/hooks";
+import { useDragControls, useTasksByStatus } from "data/tasks/hooks";
 import { LaughIcon } from "./icons/laugh-icon";
 import { SmileIcon } from "./icons/smile-icon";
 import { SmileInvertedIcon } from "./icons/smile-inverted-icon";

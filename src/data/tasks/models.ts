@@ -13,7 +13,8 @@ export const Task = z.object({
 });
 export type Task = z.infer<typeof Task>;
 
-export const isExpired = (task: Task): boolean => task.endDay <= new Date();
+export const isExpired = (task: Task): boolean =>
+  task.type !== "done" && task.endDay <= new Date();
 
 export const serializeTasks = (tasks: Task[]): string =>
   JSON.stringify(

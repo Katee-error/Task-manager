@@ -18,6 +18,11 @@ const expiringTask: Task = {
   ...futureTask,
   endDay: now,
 };
+const doneTask: Task = {
+  ...futureTask,
+  type: "done",
+  endDay: subDays(now, 1),
+};
 
 describe("Task expiry check", () => {
   beforeAll(() => {
@@ -38,5 +43,9 @@ describe("Task expiry check", () => {
 
   it("should return false if task end day is in the future", () => {
     expect(isExpired(futureTask)).toBe(false);
+  });
+
+  it("should return false if task end day is in the past and task is done", () => {
+    expect(isExpired(doneTask)).toBe(false);
   });
 });

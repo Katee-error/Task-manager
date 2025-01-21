@@ -19,9 +19,6 @@ export const TaskCard = ({ task }: TaskCardProps) => {
   const { onDelete, onEditStart, onEditCancel, onEditApply, isEditing, form } =
     useTaskActions(task);
   const [editHover, setEditHover] = useState(false);
-  if (task.text === "Разработать прототип нового интерфейса.") {
-    console.log(isEditing, editHover);
-  }
   const {
     attributes,
     listeners,

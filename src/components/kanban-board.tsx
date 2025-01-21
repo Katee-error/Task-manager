@@ -30,10 +30,9 @@ export const KanbanBoard: React.FC = () => {
           autoScroll={{ threshold: { x: 0, y: 0.2 } }}
         >
           <HStack
-            justify="space-between"
             align="start"
             overflowX="auto"
-            justifyContent="start"
+            justifyContent="center"
             spacing="40px"
           >
             <KanbanColumn

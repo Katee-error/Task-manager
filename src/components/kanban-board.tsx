@@ -32,7 +32,7 @@ export const KanbanBoard: React.FC = () => {
           <HStack
             align="start"
             overflowX="auto"
-            justifyContent="center"
+            justifyContent="start"
             spacing="40px"
           >
             <KanbanColumn

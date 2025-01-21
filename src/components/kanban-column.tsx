@@ -1,19 +1,28 @@
 import React, { ReactNode } from "react";
 import { Heading, HStack, Stack, VStack } from "@chakra-ui/react";
 import { TaskCard } from "./task/task-card";
-import { Task } from "data/tasks/models";
+import { Task, TaskType } from "data/tasks/models";
+import { SortableContext } from "@dnd-kit/sortable";
+import { DragOverlay, useDroppable } from "@dnd-kit/core";
+import { useActiveDragItem } from "data/tasks/hooks";
 
 interface KanbanColumnProps {
+  type: TaskType;
   title: string;
   icon: ReactNode;
   tasks: Task[];
 }
 
 export const KanbanColumn: React.FC<KanbanColumnProps> = ({
+  type,
   title,
   icon,
   tasks,
 }) => {
+  const activeTask = useActiveDragItem();
+
+  const { setNodeRef } = useDroppable({ id: type });
+
   return (
     <VStack
       maxH="100%"
@@ -30,11 +39,22 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = ({
           {title}
         </Heading>
       </HStack>
-      <Stack spacing={4} overflowY="auto">
-        {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
+      <Stack
+        w="100%"
+        spacing={4}
+        overflowY="auto"
+        minH="135px"
+        ref={setNodeRef}
+      >
+        <SortableContext items={tasks} id={type}>
+          {tasks.map((task) => (
+            <TaskCard key={task.id} task={task} />
+          ))}
+        </SortableContext>
       </Stack>
+      <DragOverlay>
+        {activeTask ? <TaskCard key={activeTask.id} task={activeTask} /> : null}
+      </DragOverlay>
     </VStack>
   );
 };

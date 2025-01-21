@@ -1,10 +1,19 @@
 import { compareAsc } from "date-fns";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { deleteTaskAtom, editTaskAtom, searchAtom, tasksAtom } from "./atoms";
+import {
+  activeDragTaskAtom,
+  deleteTaskAtom,
+  editTaskAtom,
+  searchAtom,
+  setActiveDragTaskAtom,
+  tasksAtom,
+  updateTaskTypeAtom,
+} from "./atoms";
 import { useCallback, useMemo, useState } from "react";
 import { groupBy } from "utils/collections";
-import { searchTasks, Task } from "./models";
+import { searchTasks, Task, TaskType } from "./models";
 import { formatDate, safeParseDate } from "utils/date";
+import { DragEndEvent, DragOverEvent, DragStartEvent } from "@dnd-kit/core";
 
 export const useTasksByStatus = () => {
   const tasks = useAtomValue(tasksAtom);
@@ -103,4 +112,66 @@ export const useSearch = () => {
   const [search, setSearch] = useAtom(searchAtom);
 
   return { search, setSearch };
+};
+
+export const useUpdateTaskType = () => {
+  return useSetAtom(updateTaskTypeAtom);
+};
+
+export const useDragControls = () => {
+  const setActiveDragTask = useSetAtom(setActiveDragTaskAtom);
+
+  const updateTaskType = useUpdateTaskType();
+
+  const dragEndHandler = useCallback(
+    (event: DragEndEvent) => {
+      setActiveDragTask(null);
+
+      if (!event.over) return;
+
+      const taskId = event.active.id;
+      const oldType = event.active.data.current?.sortable?.containerId;
+      const newType =
+        event.over.data.current?.sortable?.containerId ?? event.over.id;
+
+      if (oldType === newType) return;
+
+      updateTaskType(Number(taskId), newType);
+    },
+
+    [updateTaskType, setActiveDragTask]
+  );
+
+  const dragOverHandler = useCallback(
+    (event: DragOverEvent) => {
+      if (!event.over) return;
+
+      const taskId = event.active.id;
+      const oldType = event.active.data.current?.sortable?.containerId;
+      const newType =
+        event.over.data.current?.sortable?.containerId ?? event.over.id;
+
+      if (oldType === newType) return;
+
+      updateTaskType(Number(taskId), newType);
+    },
+    [updateTaskType]
+  );
+
+  const dragStartHandler = useCallback(
+    (event: DragStartEvent) => {
+      setActiveDragTask(Number(event.active.id));
+    },
+    [setActiveDragTask]
+  );
+
+  return {
+    dragEndHandler,
+    dragOverHandler,
+    dragStartHandler,
+  };
+};
+
+export const useActiveDragItem = () => {
+  return useAtomValue(activeDragTaskAtom);
 };

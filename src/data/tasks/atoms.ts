@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
-import { deserializeTasks, serializeTasks, Task } from "./models";
+import { deserializeTasks, serializeTasks, Task, TaskType } from "./models";
 import { loadTasks } from "./loadTasks";
 
 const storage = {
@@ -37,3 +37,26 @@ export const editTaskAtom = atom(null, (_, set, updated: Task) => {
     tasks.map((task) => (task.id === updated.id ? updated : task))
   );
 });
+
+export const updateTaskTypeAtom = atom(
+  null,
+  (_, set, taskId: number, newType: TaskType) => {
+    set(tasksAtom, (tasks) =>
+      tasks.map((task) =>
+        task.id === taskId ? { ...task, type: newType } : task
+      )
+    );
+  }
+);
+
+export const activeDragTaskAtom = atom<Task | null>(null);
+
+export const setActiveDragTaskAtom = atom(
+  null,
+  (get, set, taskId: number | null) => {
+    set(
+      activeDragTaskAtom,
+      get(tasksAtom).find((task) => task.id === taskId) ?? null
+    );
+  }
+);

@@ -7,6 +7,8 @@ import { PenIcon } from "components/icons/pen-icon";
 import { useTaskActions } from "data/tasks/hooks";
 import { CheckIcon } from "components/icons/check-icon";
 import { XIcon } from "components/icons/x-icon";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface TaskCardProps {
   task: Task;
@@ -15,37 +17,57 @@ interface TaskCardProps {
 export const TaskCard = ({ task }: TaskCardProps) => {
   const { onDelete, onEditStart, onEditCancel, onEditApply, isEditing, form } =
     useTaskActions(task);
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: task.id });
 
   return (
-    <Card variant="info" className="group">
+    <Card
+      variant="info"
+      className="group"
+      ref={setNodeRef}
+      transform={CSS.Transform.toString(transform)}
+      transition={transition}
+      {...attributes}
+      {...listeners}
+      // Library incorrectly sets opacity through element styles, so this hack with !important is required
+      opacity={isDragging ? "0 !important" : "1 !important"}
+    >
       <CardBody>
         <VStack
           justifyContent={"space-between"}
           alignItems={"start"}
           spacing="8px"
         >
-          <HStack
-            position="absolute"
-            top="16px"
-            right="16px"
-            spacing="16px"
-            opacity={0}
-            _groupHover={{ opacity: 1 }} // Кнопки показываются при наведении на карточку
-            transition="opacity 0.3s"
-          >
-            <IconButton
-              variant="icon"
-              icon={<PenIcon />}
-              aria-label="Редактировать"
-              onClick={onEditStart}
-            />
-            <IconButton
-              variant="icon-danger"
-              icon={<TrashIcon />}
-              aria-label="Удалить"
-              onClick={onDelete}
-            />
-          </HStack>
+          {isEditing ? null : (
+            <HStack
+              position="absolute"
+              top="16px"
+              right="16px"
+              spacing="16px"
+              opacity={0}
+              _groupHover={{ opacity: 1 }} // Кнопки показываются при наведении на карточку
+              transition="opacity 0.3s"
+            >
+              <IconButton
+                variant="icon"
+                icon={<PenIcon />}
+                aria-label="Редактировать"
+                onClick={onEditStart}
+              />
+              <IconButton
+                variant="icon-danger"
+                icon={<TrashIcon />}
+                aria-label="Удалить"
+                onClick={onDelete}
+              />
+            </HStack>
+          )}
           <TaskCardRow
             label="Начало:"
             isEditing={isEditing}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Heading, HStack, Stack, VStack, Box } from "@chakra-ui/react";
+import { Heading, HStack, Stack, VStack, Box } from "@chakra-ui/react";
 import { TaskCard } from "./task/task-card";
 import { Task, TaskType } from "data/tasks/models";
 import { SortableContext } from "@dnd-kit/sortable";

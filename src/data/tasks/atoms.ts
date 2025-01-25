@@ -60,3 +60,20 @@ export const setActiveDragTaskAtom = atom(
     );
   }
 );
+
+
+export const taskCountsAtom = atom((get) => {
+  const tasks = get(tasksAtom);
+
+  const initialCounts: Record<TaskType, number> = {
+    todo: 0,
+    in_progress: 0,
+    review: 0,
+    done: 0,
+  };
+
+  return tasks.reduce<Record<TaskType, number>>((counts, task) => {
+    counts[task.type] = (counts[task.type] || 0) + 1;
+    return counts;
+  }, initialCounts); 
+});

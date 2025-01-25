@@ -6,11 +6,11 @@ import { SortableContext } from "@dnd-kit/sortable";
 import { DragOverlay, useDroppable } from "@dnd-kit/core";
 import { useActiveDragItem } from "data/tasks/hooks";
 import { useAtom } from "jotai";
+import { taskCountsAtom } from "data/tasks/atoms";
 
 interface KanbanColumnProps {
   type: TaskType;
   title: string;
-  count?: number | string;
   tasks: Task[];
   backgroundColor: string;
 }
@@ -18,11 +18,11 @@ interface KanbanColumnProps {
 export const KanbanColumn: React.FC<KanbanColumnProps> = ({
   type,
   title,
-  count,
   tasks,
   backgroundColor,
 }) => {
   const activeTask = useActiveDragItem();
+  const [taskCounts] = useAtom(taskCountsAtom);
   const { setNodeRef } = useDroppable({ id: type });
 
   return (
@@ -58,7 +58,7 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = ({
           color="primaryText"
           textAlign="center"
         >
-          5
+         {taskCounts[type] ?? 0}
         </Box>
       </HStack>
       <Stack

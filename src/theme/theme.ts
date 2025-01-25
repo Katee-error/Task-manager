@@ -1,30 +1,36 @@
 import { extendTheme } from "@chakra-ui/react";
 
 const baseColors = {
-  blue: "#0184CF",
-  red: "rgba(252, 54, 57, 0.6)",
+  blue: "#2598F0",
+  red: "#F01A1E",
+  white: "#FFFFFF",
+  green: "#00E454",
 };
 const semanticColors = {
-  primaryText: "rgba(255, 255, 255, 0.87)",
+  primaryText: "#fafafa",
   secondaryText: "rgba(255, 255, 255, 0.6)",
-  background: "rgba(0,0,0, 0.7)",
-  cardBackground: "rgba(255, 255, 255, 0.1)",
+  headingSecondaryText: "rgba(255, 255, 255, 0.7)",
+  background: "#171717",
+  cardBackground: "#262626",
+  columnBackground: "#232323",
   buttonBackground: "rgba(255, 255, 255, 0.08)",
   buttonBackgroundFocus: "rgba(255, 255, 255, 0.2)",
   border: "rgba(255, 255, 255, 0.5)",
   inputBorder: "rgba(255, 255, 255, 0.3)",
+  columnBorder: '#525252',
   primary: baseColors.blue,
   error: baseColors.red,
+  todoIndicator: baseColors.red,
+  inProgressIndicator: baseColors.white,
+  rewiewIndicator: baseColors.blue,
+  doneIndicator: baseColors.green,
 };
 
 const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: "url('./assets/bg-img.png')",
-        backgroundSize: "cover",
-        color: "white",
-        backgroundRepeat: "no-repeat",
+        backgroundColor: "background",
         height: "100vh",
       },
     },
@@ -34,7 +40,7 @@ const theme = extendTheme({
     ...semanticColors,
   },
   fonts: {
-    body: "'Inter', sans-serif",
+    body: "'Nunito', sans-serif",
   },
   shadows: {
     activeInput: "0 0 0 4px rgba(1, 132, 207, 0.5)",
@@ -57,7 +63,7 @@ const theme = extendTheme({
           container: {
             backgroundColor: "cardBackground",
             color: "white",
-            borderRadius: "4px",
+            borderRadius: "20px",
           },
           body: {
             padding: "16px",
@@ -67,24 +73,27 @@ const theme = extendTheme({
     },
     Heading: {
       baseStyle: {
-        fontWeight: "700",
+        fontWeight: "500",
         letterSpacing: "0em",
-        color: "rgba(255, 255, 255, 0.87)",
+        color: "primaryText",
       },
       variants: {
         h1: {
+          color: "primaryText",
           fontSize: "40px",
           lineHeight: "70%",
         },
         h2: {
-          fontSize: "24px",
+          color: "primaryText",
+          fontSize: "20px",
+          fontWeight: '600',
           lineHeight: "117%",
         },
       },
     },
     Text: {
       baseStyle: {
-        fontSize: "14px",
+        fontSize: "16px",
         letterSpacing: "-0.03em",
       },
       variants: {
@@ -92,11 +101,6 @@ const theme = extendTheme({
           fontWeight: "400",
           lineHeight: "150%",
           color: "secondaryText",
-        },
-        bold: {
-          fontWeight: "700",
-          lineHeight: "157%",
-          color: "primaryText",
         },
         ended: {
           color: "error",
@@ -168,8 +172,8 @@ const theme = extendTheme({
             padding: "10px",
             width: "200px",
             height: "22px",
-            fontWeight: "bold",
-            fontSize: "14px",
+            fontWeight: "400",
+            fontSize: "16px",
             lineHeight: "157%",
             letterSpacing: "-0.03em",
             color: "white",
@@ -194,10 +198,10 @@ const theme = extendTheme({
           borderRadius: "4px",
           background: "none",
           padding: "10px",
-          width: "200px",
+          width: "240px",
           height: "22px",
-          fontWeight: "bold",
-          fontSize: "14px",
+          fontWeight: "regular",
+          fontSize: "18px",
           lineHeight: "157%",
           letterSpacing: "-0.03em",
           color: "white",

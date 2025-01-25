@@ -10,6 +10,7 @@ import { XIcon } from "components/icons/x-icon";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
+import { CalendarIcon } from "components/icons/calendar-icon";
 
 interface TaskCardProps {
   task: Task;
@@ -52,8 +53,6 @@ export const TaskCard = ({ task }: TaskCardProps) => {
               top="16px"
               right="16px"
               spacing="16px"
-              opacity={0}
-              _groupHover={{ opacity: 1 }} // Кнопки показываются при наведении на карточку
               transition="opacity 0.3s"
               onMouseEnter={() => setEditHover(true)}
               onMouseLeave={() => setEditHover(false)}
@@ -76,22 +75,12 @@ export const TaskCard = ({ task }: TaskCardProps) => {
             </HStack>
           )}
           <TaskCardRow
-            label="Начало:"
-            isEditing={isEditing}
-            {...form.startDay}
-          />
-          <TaskCardRow
-            label="Окончание:"
+            icon={<CalendarIcon boxSize="30px" color="white" />}
             shouldWarn={isExpired(task)}
             isEditing={isEditing}
             {...form.endDay}
           />
-          <TaskCardRow
-            label="Описание:"
-            isEditing={isEditing}
-            textArea
-            {...form.text}
-          />
+          <TaskCardRow isEditing={isEditing} textArea {...form.text} />
           {isEditing ? (
             <HStack alignSelf="end" spacing="8px">
               <IconButton

@@ -24,6 +24,7 @@ export const SearchBar: React.FC = () => {
           w={"430px"}
           bg="rgba(255, 255, 255, 0.07)"
           py={"20px"}
+          color='primaryText'
           pl="64px"
           type="text"
           borderRadius={"20px"}

@@ -1,13 +1,16 @@
-import { Container, Flex, Heading, HStack, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Heading,
+  HStack,
+  VStack,
+} from "@chakra-ui/react";
 
 import React from "react";
 import { SearchBar } from "./search-bar";
 import { KanbanColumn } from "./kanban-column";
 import { useDragControls, useTasksByStatus } from "data/tasks/hooks";
-import { LaughIcon } from "./icons/laugh-icon";
-import { SmileIcon } from "./icons/smile-icon";
-import { SmileInvertedIcon } from "./icons/smile-inverted-icon";
-import { GhostIcon } from "./icons/ghost-icon";
 import { DndContext, closestCorners } from "@dnd-kit/core";
 
 export const KanbanBoard: React.FC = () => {
@@ -33,28 +36,28 @@ export const KanbanBoard: React.FC = () => {
             align="start"
             overflowX="auto"
             justifyContent="start"
-            spacing="40px"
+            spacing="20px"
           >
             <KanbanColumn
-              icon={<LaughIcon boxSize="24px" color="primaryText" />}
+              backgroundColor="linear-gradient(90deg, #f2994a, #f2c94c)"
               title="To Do"
               tasks={tasksByStatus["todo"]}
               type="todo"
             />
             <KanbanColumn
-              icon={<SmileIcon boxSize="24px" color="primaryText" />}
+              backgroundColor="linear-gradient(90deg, #bb6bd9, #e056fd)"
               title="In Progress"
               tasks={tasksByStatus["in_progress"]}
               type="in_progress"
             />
             <KanbanColumn
-              icon={<SmileInvertedIcon boxSize="24px" color="primaryText" />}
+              backgroundColor="linear-gradient(90deg, #2d9cdb, #56ccf2)"
               title="Review"
               tasks={tasksByStatus["review"]}
               type="review"
             />
             <KanbanColumn
-              icon={<GhostIcon boxSize="24px" color="primaryText" />}
+              backgroundColor="linear-gradient(90deg, #27ae60, #6fcf97)"
               title="Done"
               tasks={tasksByStatus["done"]}
               type="done"

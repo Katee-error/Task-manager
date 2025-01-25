@@ -1,8 +1,9 @@
-import { HStack, Text } from "@chakra-ui/react";
+import { HStack} from "@chakra-ui/react";
 import { Editable } from "components/uikit/editable";
+import { ReactNode } from "react";
 
 interface TaskCardRowProps {
-  label: string;
+ icon?: ReactNode;
   value: string;
   onEdit: (value: string) => void;
   textArea?: boolean;
@@ -12,21 +13,23 @@ interface TaskCardRowProps {
 
 export const TaskCardRow = ({
   value,
-  label,
+  icon,
   onEdit,
   shouldWarn = false,
   textArea = false,
   isEditing = false,
 }: TaskCardRowProps) => {
   return (
-    <HStack alignItems="start" spacing="16px">
-      <Text variant="regular">{label}</Text>
+    <HStack alignItems="start" spacing="2px">
+     {icon}
       <Editable
         textArea={textArea}
         isEditing={isEditing}
         initialValue={value}
         textProps={{
           color: shouldWarn ? "error" : "primaryText",
+          fontSize: textArea ? '18px': '16px',
+          fontWeight: textArea ? '500' : '700'
         }}
         onEdit={onEdit}
       />

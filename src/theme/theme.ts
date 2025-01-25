@@ -17,6 +17,7 @@ const semanticColors = {
   buttonBackgroundFocus: "rgba(255, 255, 255, 0.2)",
   border: "rgba(255, 255, 255, 0.5)",
   inputBorder: "rgba(255, 255, 255, 0.3)",
+  counterBackground:"rgba(255, 255, 255, 0.19)",
   columnBorder: '#525252',
   primary: baseColors.blue,
   error: baseColors.red,
